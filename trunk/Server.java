@@ -227,7 +227,7 @@ public class Server extends JFrame implements ActionListener {
 	}
 	catch(Exception ex)
 	  {
-	    System.out.println("Exception caught: "+ex);
+	    System.out.println("Exception caught 1: "+ex);
 	    System.exit(0);
 	  }
       }
@@ -292,7 +292,7 @@ public class Server extends JFrame implements ActionListener {
     }
     catch(Exception ex)
       {
-	System.out.println("Exception caught: "+ex);
+	System.out.println("Exception caught 2: "+ex);
 	System.exit(0);
       }
     return(request_type);
@@ -312,7 +312,7 @@ public class Server extends JFrame implements ActionListener {
     }
     catch(Exception ex)
       {
-	System.out.println("Exception caught: "+ex);
+	System.out.println("Exception caught 3: "+ex);
 	System.exit(0);
       }
   }
