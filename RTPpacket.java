@@ -53,9 +53,9 @@ public class RTPpacket{
     //fill the header array of byte with RTP header fields
 
     //Set the Version
-    header[0] = (byte) ((Version << 7) >> 7);
+    header[0] = (byte) ((Version << 6 | Padding << 5 | Extension << 4 | CC));
     //Set the PayloadType
-    header[1] = (byte) (header[1] | (PayloadType << 7-7));
+    header[1] = (byte) (Marker << 7 | PayloadType);
     //Set the SequenceNumber
     header[2] = (byte) (SequenceNumber >> 8);
     header[3] = (byte) (SequenceNumber & 0xFF);
@@ -188,7 +188,7 @@ public class RTPpacket{
   public void printheader()
   {
     //TO DO: uncomment
-    
+    /*
     for (int i=0; i < (HEADER_SIZE-4); i++)
       {
 	for (int j = 7; j>=0 ; j--)
@@ -200,7 +200,7 @@ public class RTPpacket{
       }
 
     System.out.println();
-    
+    */
   }
 
   //return the unsigned value of 8-bit integer nb
