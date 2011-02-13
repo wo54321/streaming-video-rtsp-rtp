@@ -1,0 +1,23 @@
+FunkServer:
+1) It looks like the Server is keeping rounds of sending frames. Every 50 Frames it sends the first frame of that round 10 times. For example: When the Client reads upto 0-49 frames it recieves "frame 1" 10 times. Next round it will recieve 49-99 and repeat "frame 58" 10 times and so on
+2) Calculations:
+Packet loss rate: (9 packets lost)/(5800 ms) = 1.55 packets/seconds
+Video Data Rate: (50 frames)/(5800 ms) = 8.62 packets/second
+
+FunkyServer1:
+1) Frames are being sent in a pattern: 0 1 3 2 4 6 9 8. Frames are sent in multiples of this pattern, and packets 5 and 7 are dropped. Packets 2, 6 and 8 are delayed.
+2) Calculations:
+Packet loss rate: (2 packets)/(900 ms) = 2.22 packets/second
+Video Data Rate: (8 packets)/(900 ms) = 8.88 packets/second
+
+FunkyServer2:
+1) Frames are being sent in a pattern: 0 1 2 4 3 6 5 7. The last two frames are droped 8 and 9; and the frames 3, 4 and 5,6 are reversed. Packets 3 and 5 are delayed.
+2) Calculations
+Packet loss rate: (2 packets)/(900 ms) = 2.22 packets/second
+Video Data Rate: (8 packets)/(900 ms) = 8.88 packets/second
+
+FunkyServer3:
+1) The frames that are dropped are 2 and 6. The delayed frames are 4 and 7.
+2) Calculations
+Packet loss rate: (2 packets)/(900 ms) = 2.22 packets/second
+Video Data Rate: (8 packets)/(900 ms) = 8.88 packets/second
