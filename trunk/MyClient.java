@@ -26,8 +26,12 @@ public class MyClient{
   JPanel buttonPanel = new JPanel();
   JLabel iconLabel = new JLabel();
   ImageIcon icon;
-
-
+  //for adpative playout
+  double d;
+  double v;
+  int image =1;
+  double r = 0;
+  
   //RTP variables:
   //----------------
   DatagramPacket rcvdp; //UDP packet received from the server
@@ -104,6 +108,9 @@ public class MyClient{
     timer.setInitialDelay(0);
     timer.setCoalesce(true);
 
+    // initialize adaptive playout
+    d =0;
+    v =0;
     //allocate enough memory for the buffer used to receive data from the server
     buf = new byte[15000];    
   }
@@ -135,6 +142,7 @@ public class MyClient{
 
     //init RTSP state:
     state = INIT;
+    
   }
 
 
@@ -300,7 +308,7 @@ public class MyClient{
       try{
 	//receive the DP from the socket:
 	RTPsocket.receive(rcvdp);
-	  
+	double r1 = (double) System.currentTimeMillis();
 	//create an RTPpacket object from the DP
 	RTPpacket rtp_packet = new RTPpacket(rcvdp.getData(), rcvdp.getLength());
 
@@ -315,6 +323,27 @@ public class MyClient{
 	byte [] payload = new byte[payload_length];
 	rtp_packet.getpayload(payload);
 
+	// Adaptive playout
+	{
+		/*
+		 * d = estimate of average network delay
+		 * t = timestamp of packet
+		 * r = time packet recieved 
+		 * p = time packet is played
+		 * r-t = network delay
+		 * d = (1-u)di-1 + u(r-t)
+		 */
+		double t = (double)rtp_packet.gettimestamp();
+		r = (double)(System.currentTimeMillis());
+		double u = 0.6;
+		d = (1-u)*d + u*(r-t);
+		
+		v = (1-u)*v + u*(r-t-d);
+		
+		double p = t + d + 2*v;
+		System.out.println(r + " " + p);
+		
+	}
 	//get an Image object from the payload bitstream
 	Toolkit toolkit = Toolkit.getDefaultToolkit();
 	Image image = toolkit.createImage(payload, 0, payload_length);
