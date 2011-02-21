@@ -21,3 +21,6 @@ FunkyServer3:
 2) Calculations
 Packet loss rate: (2 packets)/(900 ms) = 2.22 packets/second
 Video Data Rate: (8 packets)/(900 ms) = 8.88 packets/second
+
+Additional notes:
+I did not know how to complete MyClient.java. I attempted to create a p' based on the calculations in the slides and was going to apply that to how long to wait before reading images from an array that buffers the incoming packets. The part I was having difficutly with was where we calculate the network delay. I was using System.time (something like that) to get the current time which I then need to compare with the timestamp on the packet, but I do not know how to get the system time when the packet was created. 
